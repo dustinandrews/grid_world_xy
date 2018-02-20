@@ -136,15 +136,15 @@ class DeepQ():
 if __name__ == '__main__':
     input_shape = (84,84,3)
     action_shape = (9,)
-    aux_num = 5
+    aux_num = 4*3
     batch_size = 10
 
-    q_model = DeepQ(input_shape, action_shape, aux_num)
+    q_model = DeepQ(action_shape, aux_num)
     s_batch = np.random.random_sample((batch_size,) + input_shape)
     a_batch = np.random.random_sample((batch_size,) + action_shape)
     r_batch = np.random.random_sample((batch_size,1))
     q_model.train_q_model(s_batch, a_batch, r_batch)
 
-    aux_batch = np.random.random_sample((batch_size, aux_num))
+    aux_batch = np.random.random_sample((batch_size, 4,3))
     q_model.train_auxillary(s_batch, a_batch, aux_batch)
     print(q_model.q_model.predict([s_batch, a_batch]))

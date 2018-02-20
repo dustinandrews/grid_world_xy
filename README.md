@@ -10,11 +10,18 @@ main model to learn faster.
 In this simplified example the auxilary doesn't speed convergence of the Q score,
 however other experiments have shown it to be helpful in terms of sample effeciency.
 
-**Grid Word**
+**Grid World**
+
+
 ![grid world example](sample_grid.png)
+
 This example grid world has a blue player, a green goal and a red failure location.
 
+
+**Grid Coordinates**
+
 ![Coordinates Example](sample_location.png)
+
 In this sample you can see the probability the grid world assigns to the player being
 in each location. It's output is a softmax(-dist) to each cell.
 
@@ -22,3 +29,25 @@ When trained the network will predict the most likely location of the player.
 
 Note that this method with work with just the distances from the corners, but it 
 will converge faster if you can supply more cells.
+
+** Training Results **
+
+![Coordinate prediction loss](aux_loss.png)
+
+In this toy example you can see the model converges quite quickly for the "auxilary"
+data.
+
+![Q_value loss](q_loss1.png)
+
+Q_value loss is converging but at a much slower rate. My experiments with reinforcement
+learning showed a big advantage to using an auxillary head with domain knowlege in terms
+of sample effeciency.
+
+
+**Usage**
+
+$ python grid_x_y_predict.py
+
+**Requires**
+keras with tensorflow, numpy, matplotlib, and skimage.transform
+
