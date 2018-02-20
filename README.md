@@ -30,18 +30,18 @@ When trained the network will predict the most likely location of the player.
 Note that this method with work with just the distances from the corners, but it 
 will converge faster if you can supply more cells.
 
-** Training Results **
+**Training Results **
 
 ![Coordinate prediction loss](aux_loss.png)
 
 In this toy example you can see the model converges quite quickly for the "auxilary"
-data.
+data. After 100 epochs the model can predict locations very well for 3x4 grids.
 
 ![Q_value loss](q_loss1.png)
 
-Q_value loss is converging but at a much slower rate. My other experiments with reinforcement
-learning showed a big advantage to using an auxillary head with domain knowlege in terms
-of sample effeciency. It's not helpful in this toy example.
+Q_value loss is converging but at a much slower rate. Still not converged after 1000 epochs.
+My other experiments with reinforcement learning showed a big advantage to using an auxillary
+ head with domain knowlege in terms of sample effeciency. It's not helpful in this toy example.
 
 **Notes:**
 
