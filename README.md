@@ -58,8 +58,8 @@ keras with tensorflow, numpy, matplotlib, and skimage.transform
 
 
 **See Also**
-(Deep Reinforcement Learning: Pong from Pixels)[http://karpathy.github.io/2016/05/31/rl/]
+[Deep Reinforcement Learning: Pong from Pixels](http://karpathy.github.io/2016/05/31/rl/)
 
-("auxillary Reward Architecture for Reinforcement Learning", Seijen et al.)[https://arxiv.org/pdf/1706.04208.pdf]
+["auxillary Reward Architecture for Reinforcement Learning", Seijen et al.](https://arxiv.org/pdf/1706.04208.pdf)
 
-("REINFORCEMENT LEARNING WITH UNSUPERVISED AUXILIARY TASKS", Jaderberg et al.) [https://arxiv.org/pdf/1611.05397.pdf]
+["REINFORCEMENT LEARNING WITH UNSUPERVISED AUXILIARY TASKS", Jaderberg et al.](https://arxiv.org/pdf/1611.05397.pdf)
