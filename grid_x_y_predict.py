@@ -24,11 +24,14 @@ class Grid_World():
 
     def reset(self):
         # pick 3 differnt points
-        p, g, f = np.random.choice(len(self._point_list), 3)
+        shuffle = self._point_list.copy()
+        np.random.shuffle(shuffle)
 
-        self.failure = self._point_list[f]
-        self.goal = self._point_list[g]
-        self.player = self._point_list[p]
+        f,g,p = shuffle[:3]
+
+        self.failure = f
+        self.goal = g
+        self.player = p
         return self.data()
 
     def step(self, action):
@@ -43,9 +46,6 @@ class Grid_World():
         info = self.auxillary()
         return s_, r, t, info
 
-
-
-
     def data(self):
         output = np.zeros((self.x_dim, self.y_dim, 3))
         output[tuple(self.failure) + (0,)] = 1 # r
@@ -53,19 +53,15 @@ class Grid_World():
         output[tuple(self.player)  + (2,)] = 1 # b
         return output
 
-
     def auxillary(self):
         player_dist = np.linalg.norm(self.player-self._coord_grid, axis=2)
         prob_location = self.softmax(-player_dist)
         return prob_location
 
-
     def softmax(self, x):
         """Compute softmax values for each sets of scores in x."""
         e_x = np.exp(x - np.max(x))
         return e_x / e_x.sum()
-
-
 
     def _create_coord_grid(self):
         """
@@ -85,10 +81,10 @@ class Grid_World():
 class Predict():
     action_shape = (1,)
     epochs = 1000
-    batch_size = 1000
+    batch_size = 2000
     a_loss = []
     q_loss = []
-    use_aux = False
+    use_aux = True
 
 
     def __init__(self, gw: Grid_World):
@@ -149,4 +145,9 @@ if __name__ == '__main__':
 
     predict = Predict(gw)
     predict.train()
+    no_aux = predict.q_loss
+
+    predict.use_aux = True
+    predict.train()
+    yes_auct = predict.q_loss
 
