@@ -30,7 +30,7 @@ When trained the network will predict the most likely location of the player.
 Note that this method with work with just the distances from the corners, but it 
 will converge faster if you can supply more cells.
 
-**Training Results **
+**Training Results**
 
 ![Coordinate prediction loss](aux_loss.png)
 
