@@ -3,7 +3,7 @@
 
 A basic example of using Keras and machine learning with a grid world.
 The model is a copy of same convolutional Q learning network used in many
-if the Atari game solving papers. With an additional "head" that learns other
+of the Atari game solving papers. With an additional "head" that learns other
 domian specific knowlege that is either useful in it's own right or helps the 
 main model to learn faster.
 
@@ -43,6 +43,11 @@ Q_value loss is converging but at a much slower rate. My experiments with reinfo
 learning showed a big advantage to using an auxillary head with domain knowlege in terms
 of sample effeciency.
 
+**Notes:**
+
+There is some target network code in the Keras model that is not used in this example that 
+helps with network stability when doing Reinforcement Learning. Removed from this example for 
+brevity and clarity.
 
 **Usage**
 
@@ -51,3 +56,8 @@ $ python grid_x_y_predict.py
 **Requires**
 keras with tensorflow, numpy, matplotlib, and skimage.transform
 
+
+**See Also**
+(Deep Reinforcement Learning: Pong from Pixels)[http://karpathy.github.io/2016/05/31/rl/]
+("auxillary Reward Architecture for Reinforcement Learning", Seijen et al.)[https://arxiv.org/pdf/1706.04208.pdf]
+("REINFORCEMENT LEARNING WITH UNSUPERVISED AUXILIARY TASKS", Jaderberg et al.) [https://arxiv.org/pdf/1611.05397.pdf]
