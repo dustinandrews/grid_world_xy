@@ -39,9 +39,9 @@ data.
 
 ![Q_value loss](q_loss1.png)
 
-Q_value loss is converging but at a much slower rate. My experiments with reinforcement
+Q_value loss is converging but at a much slower rate. My other experiments with reinforcement
 learning showed a big advantage to using an auxillary head with domain knowlege in terms
-of sample effeciency.
+of sample effeciency. It's not helpful in this toy example.
 
 **Notes:**
 
@@ -59,5 +59,7 @@ keras with tensorflow, numpy, matplotlib, and skimage.transform
 
 **See Also**
 (Deep Reinforcement Learning: Pong from Pixels)[http://karpathy.github.io/2016/05/31/rl/]
+
 ("auxillary Reward Architecture for Reinforcement Learning", Seijen et al.)[https://arxiv.org/pdf/1706.04208.pdf]
+
 ("REINFORCEMENT LEARNING WITH UNSUPERVISED AUXILIARY TASKS", Jaderberg et al.) [https://arxiv.org/pdf/1611.05397.pdf]
