@@ -15,10 +15,11 @@ import numpy as np
 
 class DeepQ():
     TAU = 0.1
-    _learning_rate = 1e-4 #use change_learning_rate(new_rate)
+    _learning_rate = 1e-4 # use change_learning_rate(new_rate)
+    input_shape = (84,84,3) # input shape from Atari papers
 
-    def __init__(self, input_shape, action_shape, num_aux_rewards):
-
+    def __init__(self, action_shape, num_aux_rewards):
+        input_shape = self.input_shape
         #create models
         shared_base = self._create_shared_based(input_shape)
         q_model = self._create_q_model(shared_base, action_shape)

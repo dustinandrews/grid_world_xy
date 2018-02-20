@@ -8,12 +8,13 @@ Created on Tue Feb 20 12:31:13 2018
 from keras_deep_q import DeepQ
 import numpy as np
 from matplotlib import pyplot as plt
-
+import skimage.transform
 
 class Grid_World():
     """
     Sample grid that more or less mimics AI Gym environments
     """
+    newsize = np.array([84,84,3])
 
     def __init__(self, x_dim, y_dim):
         self.x_dim = x_dim
@@ -47,6 +48,12 @@ class Grid_World():
         return s_, r, t, info
 
     def data(self):
+        output = self.actual_data()
+        # resize to match "standard" atari network
+        output = skimage.transform.resize(output, self.newsize, mode='constant', order=0)
+        return output
+
+    def actual_data(self):
         output = np.zeros((self.x_dim, self.y_dim, 3))
         output[tuple(self.failure) + (0,)] = 1 # r
         output[tuple(self.goal)    + (1,)] = 1 # g
@@ -80,16 +87,17 @@ class Grid_World():
 
 class Predict():
     action_shape = (1,)
-    epochs = 1000
-    batch_size = 2000
+    epochs = 100
+    batch_size = 200
     a_loss = []
     q_loss = []
     use_aux = True
+    use_q = False
 
 
     def __init__(self, gw: Grid_World):
         self.gw = gw
-        self.deep_q = DeepQ((gw.x_dim, gw.y_dim, 3), self.action_shape, gw.x_dim * gw.y_dim)
+        self.deep_q = DeepQ(self.action_shape, gw.x_dim * gw.y_dim)
 
     def get_samples(self, n):
         """
@@ -120,15 +128,18 @@ class Predict():
             s_batch, a_batch, r_batch, aux_batch = self.get_samples(self.batch_size)
             if self.use_aux:
                 al = self.deep_q.train_auxillary(s_batch, a_batch, aux_batch)
+                print(al, end=",")
                 self.a_loss.append(al)
-            ql = self.deep_q.train_q_model(s_batch, a_batch, r_batch)
+            if self.use_q:
+                ql = self.deep_q.train_q_model(s_batch, a_batch, r_batch)
+                self.q_loss.append(ql)
+                print(ql, end=", ")
 
-            self.q_loss.append(ql)
-            print(ql, end=", ")
+        if self.use_q:
+            plt.title("q loss")
+            plt.plot(self.q_loss)
+            plt.show()
 
-        plt.title("q loss")
-        plt.plot(self.q_loss)
-        plt.show()
         if self.use_aux:
             plt.title("aux loss")
             plt.plot(self.a_loss)
@@ -138,16 +149,14 @@ class Predict():
 
 if __name__ == '__main__':
     gw = Grid_World(3,4)
-    plt.imshow(gw.data())
+    plt.title("grid r=fail, g=goal, b=play")
+    plt.imshow(gw.actual_data())
     plt.show()
+    plt.title("probability of player location")
     plt.imshow(gw.auxillary())
     plt.show()
 
     predict = Predict(gw)
     predict.train()
-    no_aux = predict.q_loss
 
-    predict.use_aux = True
-    predict.train()
-    yes_auct = predict.q_loss
 
